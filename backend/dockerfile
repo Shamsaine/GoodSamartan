@@ -1,0 +1,22 @@
+# Use the official Python 3.9 image from Docker Hub as the base image
+FROM python:3.9
+
+# Set an environment variable to ensure Python output is immediately flushed
+# This prevents Python from buffering stdout and stderr, ensuring real-time log output in Docker.
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory inside the container to /code
+# All subsequent commands will be executed within this directory.
+WORKDIR /code
+
+# Copy the requirements.txt file from the host machine into the /code directory in the container.
+# This file contains the Python dependencies required for the project.
+COPY requirements.txt /code/
+
+# Install the dependencies listed in the requirements.txt file using pip.
+# This ensures that all necessary packages are installed inside the container.
+RUN pip install -r requirements.txt
+
+# Copy the entire project from the host machine into the /code directory in the container.
+# This includes your application code and any other necessary files.
+COPY . /code/
